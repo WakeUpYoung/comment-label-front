@@ -12,8 +12,9 @@ class LoginActivity extends Component {
             password : ""
         };
     }
+
     loginWithQQ(){
-        Alert.alert('You tapped the button!')
+        Alert.alert('You tapped the QQ button!')
     }
     render() {
         return (
@@ -51,7 +52,7 @@ class LoginActivity extends Component {
                     </View>
                     <View style={styles.loginWithOther}>
                         <TouchableOpacity onPress={this.loginWithQQ}>
-                            <Image source={require('../resources/images/qq_48_white.png')}/>
+                            <Image source={require('../resources/images/qq_48_white.png')} style={styles.loginImg}/>
                         </TouchableOpacity>
                     </View>
 
@@ -118,7 +119,11 @@ const styles = StyleSheet.create({
         marginTop : 50,
         flexDirection : "row",
         justifyContent : "center",
-        alignItems : "center"
+        alignItems : "center",
+        opacity: 0.8
+    },
+    loginImg : {
+        opacity : 0.8
     }
 
 });
