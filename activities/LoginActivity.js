@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, TextInput, TouchableNativeFeedback,
     View , StatusBar , Image , TouchableOpacity , Alert} from 'react-native';
-import { createStackNavigator, createAppContainer } from "react-navigation";
 import LinearGradient from 'react-native-linear-gradient';
+import {createAppContainer, createStackNavigator, StackNavigator} from 'react-navigation';
 
-class LoginActivity extends Component {
+export default class LoginActivity extends Component {
     constructor(prop){
         super(prop);
         this.state = {
@@ -16,11 +16,12 @@ class LoginActivity extends Component {
     loginWithQQ(){
         Alert.alert('You tapped the QQ button!')
     }
+
     render() {
         return (
             <LinearGradient colors={['#e3729e', '#fd8f54']}
-                            start={{x :0, y : 0}}
-                            end={{x : 0.7, y: 0.8}}
+                            start={{x : 0, y : 0}}
+                            end={{x : 0.7, y : 0.8}}
                             style={styles.mainView}>
                 <StatusBar hidden={false} backgroundColor={'#e3729e'}/>
                 <View style={{flex : 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -42,7 +43,8 @@ class LoginActivity extends Component {
                         </View>
                     </TouchableNativeFeedback>
                     <View style={{flexDirection:'row', alignItems: 'center', justifyContent: 'center'}}>
-                        <TouchableOpacity style={styles.bottomText}>
+                        <TouchableOpacity style={styles.bottomText}
+                                          onPress={() => {{this.props.navigation.navigate("Forget")}}}>
                             <Text>忘记密码?</Text>
                         </TouchableOpacity>
                         <Text style={{marginLeft:20, marginRight:20}}>|</Text>
@@ -61,22 +63,7 @@ class LoginActivity extends Component {
             </LinearGradient>
         );
     }
-
 }
-
-const LoginStack = createStackNavigator(
-    {
-        Login : {
-            screen : LoginActivity
-        },
-    },
-    {
-        mode: 'modal',
-        headerMode: 'none',
-    }
-);
-
-export default createAppContainer(LoginStack);
 
 const styles = StyleSheet.create({
     title : {

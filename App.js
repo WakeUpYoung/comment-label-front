@@ -1,10 +1,9 @@
-
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
-import LoginStack from "./activies/LoginActivity";
+import RootStack from "./navigator/Router";
 
-export default class App extends React.Component {
+export default class App extends Component {
     render() {
-        return <LoginStack/>;
+        return <RootStack />;
     }
 }
