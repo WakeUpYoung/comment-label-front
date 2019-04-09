@@ -8,8 +8,8 @@ export default class LoginActivity extends Component {
     constructor(prop){
         super(prop);
         this.state = {
-            username : "",
-            password : ""
+            username : null,
+            password : null
         };
     }
 
@@ -31,7 +31,7 @@ export default class LoginActivity extends Component {
                     <TextInput inlineImageLeft='user_32'
                                inlineImagePadding={20}
                                placeholder='用户名/邮箱'
-                                style={styles.inputStyle}
+                               style={styles.inputStyle}
                                onChangeText={(text) => this.setState({username : text})}/>
                     <TextInput inlineImageLeft='password_32' inlineImagePadding={20}
                                placeholder='密码' secureTextEntry={true}
@@ -44,7 +44,7 @@ export default class LoginActivity extends Component {
                     </TouchableNativeFeedback>
                     <View style={{flexDirection:'row', alignItems: 'center', justifyContent: 'center'}}>
                         <TouchableOpacity style={styles.bottomText}
-                                          onPress={() => {{this.props.navigation.navigate("Forget")}}}>
+                                          onPress={() => {{this.props.navigation.navigate("Forget", {email : this.state.username})}}}>
                             <Text>忘记密码?</Text>
                         </TouchableOpacity>
                         <Text style={{marginLeft:20, marginRight:20}}>|</Text>
