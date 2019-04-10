@@ -8,6 +8,8 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import HomeActivity from "../activities/HomeActivity";
 import LabelActivity from "../activities/LabelActivity";
 import UserActivity from "../activities/UserActivity";
+import createMaterialBottomTabNavigator
+    from "react-navigation-material-bottom-tabs/dist/navigators/createMaterialBottomTabNavigator";
 
 const RootStack = createStackNavigator(
     {
@@ -25,7 +27,7 @@ const RootStack = createStackNavigator(
     }
 );
 
-const TabNavigator = createBottomTabNavigator(
+const TabNavigator = createMaterialBottomTabNavigator(
     {
         Home : {
             screen : HomeActivity,
@@ -56,13 +58,11 @@ const TabNavigator = createBottomTabNavigator(
     {
         initialRouteName : 'Home',
         mode: 'card',
-        tabBarOptions : {
-            activeTintColor : '#fd8f54',
-            activeBackgroundColor : "#fff",
-            showLabel : false,
-            showIcon : true,
-
-        }
+        shifting : true,
+        lazy : true,
+        activeColor: '#f0edf6',
+        inactiveColor: '#94510e',
+        barStyle: { backgroundColor: '#fd8f54' },
     }
 );
 export const MainAppContainer = createAppContainer(TabNavigator);
