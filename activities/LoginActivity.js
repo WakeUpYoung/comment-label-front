@@ -8,8 +8,8 @@ export default class LoginActivity extends Component {
     constructor(prop){
         super(prop);
         this.state = {
-            username : null,
-            password : null
+            username : '',
+            password : ''
         };
     }
 

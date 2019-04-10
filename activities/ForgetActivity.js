@@ -1,13 +1,16 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, TextInput, TouchableNativeFeedback,
-    View , StatusBar , Image , Alert , Button} from 'react-native';
+    View , StatusBar , Image , Alert , ToastAndroid} from 'react-native';
 import LinearGradient from "react-native-linear-gradient";
 
 export default class ForgetActivity extends Component {
     constructor(prop){
         super(prop);
         this.state = {
-            email : null
+            email : JSON.stringify(this.props.navigation.getParam('email', '')).replace(/"/g,''),
+            sendBtnDisable : false,
+            btnText : '发送验证码',
+            btnColor : '#6495ED',
         }
     }
 
@@ -22,9 +25,39 @@ export default class ForgetActivity extends Component {
         },
     };
 
+    onPressSend(){
+        if (!this.state.sendBtnDisable){
+            let time = 60;
+            this.interval = setInterval(() => {
+                time--;
+                if (time <= 0){
+                    this.setState(oldChar => {
+                        return {
+                            btnText : "发送验证码",
+                            sendBtnDisable : false,
+                            btnColor: '#6495ED'
+                        }
+                    });
+                    clearInterval(this.interval)
+                }else {
+                    this.setState(old => {
+                        return {
+                            sendBtnDisable: true,
+                            btnText: "重新发送(" + time + ")",
+                            btnColor : "#A9A9A9"
+                        }
+                    });
+
+                }
+            }, 1000);
+            return ToastAndroid.show("发送验证码", ToastAndroid.SHORT);
+        }else {
+            return null
+        }
+    };
+
+
     render(){
-        const { navigation } = this.props;
-        const email = navigation.getParam('email', 'default');
         return(
             <LinearGradient colors={['#e3729e', '#fd8f54']}
                             start={{x : 0, y : 0}}
@@ -34,21 +67,26 @@ export default class ForgetActivity extends Component {
                 <View style={{flex : 4}}>
                     <TextInput inlineImageLeft='email_32'
                            inlineImagePadding={20}
-                           placeholder='邮箱'
+                           placeholder='邮箱' defaultValue={this.state.email}
+                           keyboardType='email-address'
                            style={styles.inputStyle}/>
                     <View style={styles.codeView}>
                         <TextInput inlineImageLeft='code_32'
                                    inlineImagePadding={20}
                                     placeholder="验证码" style={[styles.inputStyle, {flex: 3}]}/>
-                        <TouchableNativeFeedback>
-                            <View style={styles.sendBtn}>
-                                <Text style={styles.sendText}>发送验证码</Text>
+                        <TouchableNativeFeedback onPress={() => this.onPressSend()}>
+                            <View style={[styles.sendBtn, {backgroundColor: this.state.btnColor}]}>
+                                <Text style={styles.sendText}>{this.state.btnText}</Text>
                             </View>
                         </TouchableNativeFeedback>
                     </View>
             </View>
             </LinearGradient>
             );
+    }
+
+    componentWillUnmount(){
+        clearInterval(this.interval)
     }
 }
 
@@ -62,6 +100,7 @@ const styles = StyleSheet.create({
     inputStyle : {
         marginBottom : 30,
         paddingLeft : 20,
+        paddingRight : 20,
         paddingBottom: 10,
         paddingTop : 10,
         borderColor : "white",
@@ -72,11 +111,12 @@ const styles = StyleSheet.create({
         flexDirection: "row",
     },
     sendBtn : {
-        flex : 1,
         marginBottom : 30,
-        alignItems : "center",
+        flex : 2,
         justifyContent : "center",
-        backgroundColor: "#6495ED",
+        alignItems : "center",
+        marginLeft : 20,
+        borderRadius : 30,
     },
     sendText : {
         color : "#fff"
