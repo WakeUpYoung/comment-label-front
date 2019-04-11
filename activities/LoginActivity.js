@@ -23,7 +23,7 @@ export default class LoginActivity extends Component {
                             start={{x : 0, y : 0}}
                             end={{x : 0.7, y : 0.8}}
                             style={styles.mainView}>
-                <StatusBar hidden={false} backgroundColor={'#e3729e'}/>
+                <StatusBar hidden={false} barStyle={'light-content'} translucent={true} backgroundColor={'transparent'}/>
                 <View style={{flex : 1, justifyContent: 'center', alignItems: 'center'}}>
                     <Text style={styles.title}>Welcome</Text>
                 </View>

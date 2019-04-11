@@ -11,6 +11,8 @@ export default class HomeActivity extends Component{
    render() {
        return(
            <View>
+               <StatusBar hidden={false} barStyle={'dark-content'} translucent={true} backgroundColor={'transparent'}/>
+               <View style={{height : StatusBar.currentHeight}}/>
                <Text>This is HomeActivity</Text>
 
            </View>

@@ -34,7 +34,8 @@ const TabNavigator = createMaterialBottomTabNavigator(
             navigationOptions : ({navigation}) => ({
                 tabBarIcon : ({tintColor, focused}) => {
                     return <AntDesign name={'home'} color={tintColor} size={26} />;
-                }
+                },
+                tabBarColor: "#fd8f54"
             }),
 
         },
@@ -43,7 +44,8 @@ const TabNavigator = createMaterialBottomTabNavigator(
             navigationOptions : ({navigation}) => ({
                 tabBarIcon : ({tintColor, focused}) => {
                     return <SimpleLineIcons name={'pencil'} color={tintColor} size={26} />;
-                }
+                },
+                tabBarColor : "#00b4a1",
             }),
         },
         User : {
@@ -51,7 +53,8 @@ const TabNavigator = createMaterialBottomTabNavigator(
             navigationOptions : ({navigation}) => ({
                 tabBarIcon : ({tintColor, focused}) => {
                     return <FontAwesome name={'user-o'} color={tintColor} size={26} />;
-                }
+                },
+                tabBarColor : "#3f51b5",
             }),
         },
     },
@@ -61,7 +64,7 @@ const TabNavigator = createMaterialBottomTabNavigator(
         shifting : true,
         lazy : true,
         activeColor: '#f0edf6',
-        inactiveColor: '#94510e',
+        inactiveColor: '#0000005C',
         barStyle: { backgroundColor: '#fd8f54' },
     }
 );
