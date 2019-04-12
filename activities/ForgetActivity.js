@@ -14,16 +14,6 @@ export default class ForgetActivity extends Component {
         }
     }
 
-    static navigationOptions = {
-        title: '邮箱验证',
-        headerStyle: {
-            backgroundColor: '#fd8f54',
-        },
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-            fontWeight: 'bold',
-        },
-    };
 
     onPressSend(){
         if (!this.state.sendBtnDisable){
