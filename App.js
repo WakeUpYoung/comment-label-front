@@ -5,6 +5,6 @@ import TestActivity from "./activities/TestActivity";
 
 export default class App extends Component {
     render() {
-        return <MainAppContainer />;
+        return <RootStack />;
     }
 }

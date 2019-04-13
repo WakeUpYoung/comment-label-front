@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, TextInput, TouchableNativeFeedback,
-    View , StatusBar , Image , TouchableOpacity , Alert} from 'react-native';
+    View , StatusBar , Image , TouchableOpacity , Alert, ToastAndroid} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import * as QQAPI from 'react-native-qq';
 import {createAppContainer, createStackNavigator, StackNavigator} from 'react-navigation';
 
 export default class LoginActivity extends Component {
@@ -14,7 +15,32 @@ export default class LoginActivity extends Component {
     }
 
     loginWithQQ(){
-        Alert.alert('You tapped the QQ button!')
+        let scopes = 'get_userinfo';
+        QQAPI.isQQInstalled()
+            .then(install => {
+                if (install){
+                    QQAPI.login(scopes)
+                        .then(data => {
+                            console.warn(JSON.stringify(data));
+                            fetch("http://localhost:8083/user/loginWithQQ/",{
+                                method : 'POST',
+
+                                body : JSON.stringify({
+                                    expiresIn : "111",
+                                    oauthConsumerKey : "111",
+                                    accessToken : "111",
+                                    openId : "111",
+                                })
+                            })
+                                .then(res => res.json())
+                                .then(resJson => console.warn(resJson))
+                                .catch(error => console.warn(JSON.stringify(error)))
+                        })
+
+                }else {
+                    ToastAndroid.show("啊哦，您好像没有安装QQ", ToastAndroid.SHORT)
+                }
+            });
     }
 
     render() {
@@ -48,7 +74,8 @@ export default class LoginActivity extends Component {
                             <Text>忘记密码?</Text>
                         </TouchableOpacity>
                         <Text style={{marginLeft:20, marginRight:20}}>|</Text>
-                        <TouchableOpacity style={styles.bottomText}>
+                        <TouchableOpacity style={styles.bottomText}
+                            onPress={() => {ToastAndroid.show("直接QQ登录就好了(￣▽￣)\"", ToastAndroid.SHORT)}}>
                             <Text>立即注册</Text>
                         </TouchableOpacity>
                     </View>
