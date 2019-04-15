@@ -25,7 +25,7 @@ export default class UserActivity extends Component{
                 <View style={[styles.imgView , {left : avatarLeft, top : avatarTop}]}>
                     <Image style={styles.userImg} width={48} height={48} source={require('../resources/images/user_grey.png')}/>
                 </View>
-                <MenuTextView/>
+                <MenuTextView title={"邮箱"} imageSource={require('../resources/images/email_t_32.png')}/>
             </View>
         )
     }

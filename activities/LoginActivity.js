@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
+import Global from '../config/Global';
 import {Platform, StyleSheet, Text, TextInput, TouchableNativeFeedback,
     View , StatusBar , Image , TouchableOpacity , Alert, ToastAndroid} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import * as QQAPI from 'react-native-qq';
 import {createAppContainer, createStackNavigator, StackNavigator} from 'react-navigation';
+import LoadModel from "../components/LoadModel";
 
 export default class LoginActivity extends Component {
     constructor(prop){
@@ -12,6 +14,8 @@ export default class LoginActivity extends Component {
             username : '',
             password : ''
         };
+        this.loadModel = null;
+        this.loginWithQQ = this.loginWithQQ.bind(this)
     }
 
     loginWithQQ(){
@@ -21,20 +25,32 @@ export default class LoginActivity extends Component {
                 if (install){
                     QQAPI.login(scopes)
                         .then(data => {
-                            console.warn(JSON.stringify(data));
-                            fetch("http://localhost:8083/user/loginWithQQ/",{
+                            fetch(Global.backendUrl + "/user/loginWithQQ",{
                                 method : 'POST',
-
+                                headers : {
+                                    'Content-Type' : 'application/json;charset=utf-8'
+                                },
                                 body : JSON.stringify({
-                                    expiresIn : "111",
-                                    oauthConsumerKey : "111",
-                                    accessToken : "111",
-                                    openId : "111",
+                                    expiresIn : data.expires_in,
+                                    oauthConsumerKey : data.oauth_consumer_key,
+                                    accessToken : data.access_token,
+                                    openId : data.openid,
                                 })
                             })
-                                .then(res => res.json())
-                                .then(resJson => console.warn(resJson))
-                                .catch(error => console.warn(JSON.stringify(error)))
+                                .then(res => {
+                                    this.loadModel.showLoading();
+                                    return res.json()
+                                })
+                                .then(json => {
+                                    this.loadModel.hiddenLoading();
+                                    if (json.code === 0){
+                                        this.props.navigation.navigate("Main");
+                                    }else {
+                                        ToastAndroid.show(json.errMsg, ToastAndroid.SHORT);
+                                    }
+
+                                })
+                                .catch(error => console.warn("warn :" + JSON.stringify(error)))
                         })
 
                 }else {
@@ -86,6 +102,8 @@ export default class LoginActivity extends Component {
                     </View>
 
                 </View>
+
+                <LoadModel ref={view => this.loadModel = view} title={'登录中'}/>
 
             </LinearGradient>
         );

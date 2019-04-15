@@ -11,21 +11,7 @@ import UserActivity from "../activities/UserActivity";
 import createMaterialBottomTabNavigator
     from "react-navigation-material-bottom-tabs/dist/navigators/createMaterialBottomTabNavigator";
 
-const RootStack = createStackNavigator(
-    {
-        Login : {
-            screen : LoginActivity
-        },
-        Forget : {
-            screen : ForgetActivity
-        }
-    },
-    {
-        initialRouteName : "Login" ,
-        mode: 'modal',
-        headerMode: 'none',
-    }
-);
+
 
 const TabNavigator = createMaterialBottomTabNavigator(
     {
@@ -88,4 +74,24 @@ export const MainAppContainer = createAppContainer(TabNavigator);
     }
 );*/
 
-export default createAppContainer(RootStack);
+const RootStack = createStackNavigator(
+    {
+        Login : {
+            screen : LoginActivity
+        },
+        Forget : {
+            screen : ForgetActivity
+        },
+        Main : {
+            screen : TabNavigator
+        },
+
+    },
+    {
+        initialRouteName : "Login" ,
+        mode: 'modal',
+        headerMode: 'none',
+    }
+);
+
+export const RootNavigator = createAppContainer(RootStack);

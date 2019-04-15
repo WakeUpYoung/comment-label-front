@@ -1,18 +1,26 @@
 import React,{Component} from "react";
-import {Text, View, StatusBar , StyleSheet , Dimensions , ART, Image, FlatList} from "react-native";
+import {Text, View, StyleSheet, Image, TouchableNativeFeedback} from "react-native";
+import PropTypes from 'prop-types';
 
 export default class MenuTextView extends Component {
-    constructor(prop) {
-        super(prop);
-        this.state = {}
+    constructor(props) {
+        super(props);
+        this.state = {};
     }
+
+    static propTypes = {
+        title : PropTypes.string.isRequired,
+        imageSource : PropTypes.any.isRequired,
+    };
 
     render() {
         return(
-            <View style={styles.mainView}>
-                <Image style={styles.imageView} source={require("../resources/images/email_t_32.png")}/>
-                <Text style={styles.content}>邮箱</Text>
-            </View>
+            <TouchableNativeFeedback>
+                <View style={styles.mainView}>
+                    <Image style={styles.imageView} source={this.props.imageSource}/>
+                    <Text style={styles.content}>{this.props.title}</Text>
+                </View>
+            </TouchableNativeFeedback>
         )
     }
 }
