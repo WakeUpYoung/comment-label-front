@@ -10,14 +10,18 @@ export default class MenuTextView extends Component {
 
     static propTypes = {
         title : PropTypes.string.isRequired,
-        imageSource : PropTypes.any.isRequired,
+        onPress : PropTypes.func,
+        image : PropTypes.element.isRequired,
     };
 
     render() {
         return(
-            <TouchableNativeFeedback>
+            <TouchableNativeFeedback
+                onPress={this.props.onPress}>
                 <View style={styles.mainView}>
-                    <Image style={styles.imageView} source={this.props.imageSource}/>
+                    <View style={{marginLeft: 30, marginRight: 20}}>
+                        {this.props.image}
+                    </View>
                     <Text style={styles.content}>{this.props.title}</Text>
                 </View>
             </TouchableNativeFeedback>
@@ -29,6 +33,7 @@ const styles = StyleSheet.create({
     mainView : {
         flexDirection : "row",
         alignItems : "center",
+        backgroundColor : "#fff",
     },
     imageView : {
         marginLeft : 30,

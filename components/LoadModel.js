@@ -11,6 +11,8 @@ export default class LoadModel extends Component{
         this.state = {
             visible : false,
         };
+        this.showLoading = this.showLoading.bind(this);
+        this.hiddenLoading = this.hiddenLoading.bind(this);
     }
 
     static propTypes = {
@@ -18,7 +20,7 @@ export default class LoadModel extends Component{
         title : PropTypes.string,
     };
 
-    getDefaultProps = {
+    static defaultProps = {
         color : '#ff832c',
     };
 

@@ -1,5 +1,5 @@
 import React,{Component} from "react";
-import {StyleSheet, Text, View, TouchableOpacity, StatusBar} from "react-native";
+import {StyleSheet, Text, View, TouchableOpacity, StatusBar, ToastAndroid} from "react-native";
 import SwiperAnimated from "react-native-swiper-animated/src/Swiper";
 
 export default class LabelActivity extends Component{
@@ -7,14 +7,30 @@ export default class LabelActivity extends Component{
         super(prop);
         this.state = {
             commodityName : '商品名称',
+            isDisable : false,
 
         };
         this.swiper=null;
     }
 
-    next= () => {
+    next = () => {
+        if (this.state.isDisable){
+            return false;
+        }
         this.swiper.forceRightSwipe();
+        this.setState({
+            isDisable : true,
+        });
+        this.timeOut = setTimeout(() => {
+            this.setState({
+                isDisable : false,
+            })
+        }, 500);
     };
+
+    componentWillUnmount() {
+        this.timeOut && clearTimeout(this.timeOut)
+    }
 
     render() {
         return(

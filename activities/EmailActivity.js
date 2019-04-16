@@ -1,22 +1,27 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, TextInput, TouchableNativeFeedback,
-    View , StatusBar , Image , Alert , ToastAndroid} from 'react-native';
+    View ,StatusBar , Image, ToastAndroid, TouchableOpacity} from 'react-native';
 import LinearGradient from "react-native-linear-gradient";
+import HeaderBar from "../components/HeaderBar";
+import Global from "../config/Global";
 
-export default class ForgetActivity extends Component {
+export default class EmailActivity extends Component {
     constructor(prop){
         super(prop);
         this.state = {
-            email : JSON.stringify(this.props.navigation.getParam('email', '')).replace(/"/g,''),
+            email : JSON.stringify(this.props.navigation.getParam('email', '')).replace(/"'/g,''),
+            type : JSON.stringify(this.props.navigation.getParam('type', '')).replace(/"'/g,''),
             sendBtnDisable : false,
             btnText : '发送验证码',
             btnColor : '#6495ED',
         }
     }
 
-
     onPressSend(){
         if (!this.state.sendBtnDisable){
+            if (!Global.emailRegx.test(this.state.email)) {
+                return ToastAndroid.show('输入的邮箱格式不正确', ToastAndroid.SHORT);
+            }
             let time = 60;
             this.interval = setInterval(() => {
                 time--;
@@ -48,17 +53,27 @@ export default class ForgetActivity extends Component {
 
 
     render(){
+        let email = this.state.email;
+        if (email || email == null || email.startsWith('not_set_')){
+            email = '';
+        }
+
         return(
             <LinearGradient colors={['#e3729e', '#fd8f54']}
                             start={{x : 0, y : 0}}
                             end={{x : 0.7, y : 0.8}}
                             style={styles.mainView}>
+
+                <HeaderBar onPressBack={() => this.props.navigation.goBack()}/>
+
                 <View style={{flex : 1}}/>
-                <View style={{flex : 4}}>
+                <View style={styles.contentView}>
                     <TextInput inlineImageLeft='email_32'
                            inlineImagePadding={20}
-                           placeholder='邮箱' defaultValue={this.state.email}
+                           placeholder='邮箱'
+                           defaultValue={email}
                            keyboardType='email-address'
+                               onChangeText={(text) => this.setState({email : text})}
                            style={styles.inputStyle}/>
                     <View style={styles.codeView}>
                         <TextInput inlineImageLeft='code_32'
@@ -84,8 +99,12 @@ const styles = StyleSheet.create({
     mainView : {
         flexDirection : "column",
         flex : 2,
-        paddingLeft: 30,
-        paddingRight : 30
+    },
+
+    contentView : {
+        flex : 4,
+        marginLeft: 30,
+        marginRight : 30,
     },
     inputStyle : {
         marginBottom : 30,
@@ -109,7 +128,7 @@ const styles = StyleSheet.create({
         borderRadius : 30,
     },
     sendText : {
-        color : "#fff"
+        color : "#fff",
     }
 
 });

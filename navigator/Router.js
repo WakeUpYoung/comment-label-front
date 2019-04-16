@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import {createAppContainer, createBottomTabNavigator, createStackNavigator} from "react-navigation";
+import {createAppContainer, createStackNavigator} from "react-navigation";
 import LoginActivity from "../activities/LoginActivity";
-import ForgetActivity from "../activities/ForgetActivity";
+import EmailActivity from "../activities/EmailActivity";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
@@ -10,8 +10,19 @@ import LabelActivity from "../activities/LabelActivity";
 import UserActivity from "../activities/UserActivity";
 import createMaterialBottomTabNavigator
     from "react-navigation-material-bottom-tabs/dist/navigators/createMaterialBottomTabNavigator";
+import Global from "../config/Global";
 
-
+const UserNavigator = createStackNavigator(
+    {
+        User : UserActivity,
+        Email : EmailActivity,
+    },
+    {
+        initialRouteName : "User" ,
+        mode: 'modal',
+        headerMode: 'none',
+    }
+);
 
 const TabNavigator = createMaterialBottomTabNavigator(
     {
@@ -21,7 +32,7 @@ const TabNavigator = createMaterialBottomTabNavigator(
                 tabBarIcon : ({tintColor, focused}) => {
                     return <AntDesign name={'home'} color={tintColor} size={26} />;
                 },
-                tabBarColor: "#fd8f54"
+                tabBarColor: Global.homeStyle,
             }),
 
         },
@@ -31,16 +42,16 @@ const TabNavigator = createMaterialBottomTabNavigator(
                 tabBarIcon : ({tintColor, focused}) => {
                     return <SimpleLineIcons name={'pencil'} color={tintColor} size={26} />;
                 },
-                tabBarColor : "#00b4a1",
+                tabBarColor : Global.labelStyle,
             }),
         },
         User : {
-            screen : UserActivity,
+            screen : UserNavigator,
             navigationOptions : ({navigation}) => ({
                 tabBarIcon : ({tintColor, focused}) => {
                     return <FontAwesome name={'user-o'} color={tintColor} size={26} />;
                 },
-                tabBarColor : "#3f51b5",
+                tabBarColor : Global.userStyle,
             }),
         },
     },
@@ -56,31 +67,13 @@ const TabNavigator = createMaterialBottomTabNavigator(
 );
 export const MainAppContainer = createAppContainer(TabNavigator);
 
-/*const MainStack = createStackNavigator(
-    {
-        Forget : {screen : ForgetActivity},
-    },
-    {
-        initialRouteName : "Forget",
-        defaultNavigationOptions: {
-            headerStyle: {
-                backgroundColor: '#f4511e',
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-                fontWeight: 'bold',
-            },
-        },
-    }
-);*/
-
-const RootStack = createStackNavigator(
+const LoginStack = createStackNavigator(
     {
         Login : {
             screen : LoginActivity
         },
         Forget : {
-            screen : ForgetActivity
+            screen : EmailActivity
         },
         Main : {
             screen : TabNavigator
@@ -94,4 +87,4 @@ const RootStack = createStackNavigator(
     }
 );
 
-export const RootNavigator = createAppContainer(RootStack);
+export const LoginNavigator = createAppContainer(LoginStack);

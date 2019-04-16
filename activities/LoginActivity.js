@@ -4,8 +4,9 @@ import {Platform, StyleSheet, Text, TextInput, TouchableNativeFeedback,
     View , StatusBar , Image , TouchableOpacity , Alert, ToastAndroid} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import * as QQAPI from 'react-native-qq';
-import {createAppContainer, createStackNavigator, StackNavigator} from 'react-navigation';
+import PropTypes from 'prop-types';
 import LoadModel from "../components/LoadModel";
+
 
 export default class LoginActivity extends Component {
     constructor(prop){
@@ -15,11 +16,13 @@ export default class LoginActivity extends Component {
             password : ''
         };
         this.loadModel = null;
-        this.loginWithQQ = this.loginWithQQ.bind(this)
+        this.loginWithQQ = this.loginWithQQ.bind(this);
     }
+
 
     loginWithQQ(){
         let scopes = 'get_userinfo';
+        this.loadModel.showLoading();
         QQAPI.isQQInstalled()
             .then(install => {
                 if (install){
@@ -38,12 +41,12 @@ export default class LoginActivity extends Component {
                                 })
                             })
                                 .then(res => {
-                                    this.loadModel.showLoading();
-                                    return res.json()
+                                    return res.json();
                                 })
                                 .then(json => {
                                     this.loadModel.hiddenLoading();
                                     if (json.code === 0){
+                                        this.saveUserInfo(json.data);
                                         this.props.navigation.navigate("Main");
                                     }else {
                                         ToastAndroid.show(json.errMsg, ToastAndroid.SHORT);
@@ -57,6 +60,17 @@ export default class LoginActivity extends Component {
                     ToastAndroid.show("啊哦，您好像没有安装QQ", ToastAndroid.SHORT)
                 }
             });
+    }
+
+    saveUserInfo(user : PropTypes.object.isRequired){
+        Global.user.id = user.id;
+        Global.user.email = user.email;
+        Global.user.openid = user.openId;
+        Global.user.gender = user.gender;
+        Global.user.nickname = user.nickname;
+        Global.user.figureurl_qq_small = user.figureurlQqSmall;
+        Global.user.figureurl_qq_big = user.figureurlQqBig;
+
     }
 
     render() {
@@ -79,6 +93,7 @@ export default class LoginActivity extends Component {
                                placeholder='密码' secureTextEntry={true}
                                style={styles.inputStyle}
                                onChangeText={(text) => this.setState({password : text})}/>
+                    {/*登录按钮*/}
                     <TouchableNativeFeedback>
                         <View style={styles.button}>
                             <Text style={styles.buttonText}>登录</Text>
@@ -86,7 +101,9 @@ export default class LoginActivity extends Component {
                     </TouchableNativeFeedback>
                     <View style={{flexDirection:'row', alignItems: 'center', justifyContent: 'center'}}>
                         <TouchableOpacity style={styles.bottomText}
-                                          onPress={() => {{this.props.navigation.navigate("Forget", {email : this.state.username})}}}>
+                                          onPress={() => {
+                                              this.props.navigation.navigate("Forget"
+                                                  , {email : this.state.username, type : 'forget'})}}>
                             <Text>忘记密码?</Text>
                         </TouchableOpacity>
                         <Text style={{marginLeft:20, marginRight:20}}>|</Text>
@@ -95,15 +112,16 @@ export default class LoginActivity extends Component {
                             <Text>立即注册</Text>
                         </TouchableOpacity>
                     </View>
+                    {/* 第三方登录 */}
                     <View style={styles.loginWithOther}>
-                        <TouchableOpacity onPress={this.loginWithQQ}>
+                        <TouchableOpacity onPress={() => this.loginWithQQ()}>
                             <Image source={require('../resources/images/qq_48_white.png')} style={styles.loginImg}/>
                         </TouchableOpacity>
                     </View>
 
                 </View>
 
-                <LoadModel ref={view => this.loadModel = view} title={'登录中'}/>
+                <LoadModel ref={(view) => this.loadModel = view} title={'登录中'}/>
 
             </LinearGradient>
         );
