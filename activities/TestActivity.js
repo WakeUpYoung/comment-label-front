@@ -11,7 +11,6 @@ export default class TestActivity extends Component {
     render() {
         return (
             <View>
-                <View style={{marginTop : StatusBar.currentHeight}}/>
                 <LoadModel title={'aaaa'} ref={(view) => this.loading=view}/>
                 <Button title={'click'} onPress={() => {
                     ToastAndroid.show('aaa', ToastAndroid.SHORT);

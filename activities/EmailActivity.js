@@ -9,12 +9,28 @@ export default class EmailActivity extends Component {
     constructor(prop){
         super(prop);
         this.state = {
-            email : JSON.stringify(this.props.navigation.getParam('email', '')).replace(/"'/g,''),
-            type : JSON.stringify(this.props.navigation.getParam('type', '')).replace(/"'/g,''),
+            email : JSON.stringify(this.props.navigation.getParam('email', '')).replace(/["']/g,''),
             sendBtnDisable : false,
             btnText : '发送验证码',
             btnColor : '#6495ED',
+        };
+        let type = JSON.stringify(this.props.navigation.getParam('type', '')).replace(/["']/g,'');
+        if (type === 'default'){
+            this.background = ['#e3729e', '#fd8f54'];
+            this.defaultBtnColor = '#6495ED';
+            this.disableColor = '#A9A9A9';
+        } else {
+            this.background = ['#6495ED', '#6495ED'];
+            this.defaultBtnColor = '#00000050';
+            this.disableColor = '#0000002c';
         }
+
+    }
+
+    componentWillMount() {
+        this.setState({
+            btnColor : this.defaultBtnColor,
+        })
     }
 
     onPressSend(){
@@ -26,20 +42,20 @@ export default class EmailActivity extends Component {
             this.interval = setInterval(() => {
                 time--;
                 if (time <= 0){
-                    this.setState(oldChar => {
+                    this.setState(() => {
                         return {
                             btnText : "发送验证码",
                             sendBtnDisable : false,
-                            btnColor: '#6495ED'
+                            btnColor: this.defaultBtnColor,
                         }
                     });
                     clearInterval(this.interval)
                 }else {
-                    this.setState(old => {
+                    this.setState(() => {
                         return {
                             sendBtnDisable: true,
                             btnText: "重新发送(" + time + ")",
-                            btnColor : "#A9A9A9"
+                            btnColor : this.disableColor,
                         }
                     });
 
@@ -47,7 +63,7 @@ export default class EmailActivity extends Component {
             }, 1000);
             return ToastAndroid.show("发送验证码", ToastAndroid.SHORT);
         }else {
-            return null
+            return null;
         }
     };
 
@@ -59,7 +75,7 @@ export default class EmailActivity extends Component {
         }
 
         return(
-            <LinearGradient colors={['#e3729e', '#fd8f54']}
+            <LinearGradient colors={this.background}
                             start={{x : 0, y : 0}}
                             end={{x : 0.7, y : 0.8}}
                             style={styles.mainView}>

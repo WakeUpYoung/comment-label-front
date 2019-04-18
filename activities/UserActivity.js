@@ -54,10 +54,13 @@ export default class UserActivity extends Component{
                                   email : Global.user.email,
                               })}}/>
                 <MenuTextView title={"我的战绩"}
-                                image={<MaterialCommunityIcons name={'google-analytics'} size={30} color={Global.userStyle}/>} />
-                <MenuTextView title={"提交BUG"} image={<MaterialCommunityIcons name={'bug-outline'} size={30} color={Global.userStyle}/>}/>
+                                image={<MaterialCommunityIcons name={'google-analytics'} size={30} color={Global.userStyle}/>}
+                              onPress={() => {ToastAndroid.show("功能完善中", ToastAndroid.SHORT)}}/>
+                <MenuTextView title={"提交BUG"} image={<MaterialCommunityIcons name={'bug-outline'} size={30} color={Global.userStyle}/>}
+                    onPress={() => {ToastAndroid.show("功能完善中", ToastAndroid.SHORT)}}/>
                 <MenuTextView title={"关于此软件"}
-                              image={<MaterialCommunityIcons name={'information-outline'} color={Global.userStyle} size={30} />}/>
+                              image={<MaterialCommunityIcons name={'information-outline'} color={Global.userStyle} size={30} />}
+                            onPress={() => {ToastAndroid.show("这是一个超厉害的软件(ง •_•)ง", ToastAndroid.SHORT)}}/>
                 <View style={{marginTop : 50, backgroundColor : "transparent"}}/>
                 <TouchableNativeFeedback
                     onPress={() => ToastAndroid.show("退出登录", ToastAndroid.SHORT)}>
@@ -74,7 +77,7 @@ const styles = StyleSheet.create({
     mainView : {
         flexDirection: "column",
         flex: 1,
-        backgroundColor: '#f0f0f0',
+        backgroundColor: '#f4f4f4',
 
     },
     userTopView : {

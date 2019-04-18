@@ -18,10 +18,12 @@ export default class LoadModel extends Component{
     static propTypes = {
         color : PropTypes.string,
         title : PropTypes.string,
+        backgroundColor : PropTypes.string,
     };
 
     static defaultProps = {
         color : '#ff832c',
+        backgroundColor : "#fff",
     };
 
     showLoading(){
@@ -47,7 +49,7 @@ export default class LoadModel extends Component{
                 }}
             >
                 <View style={styles.father}>
-                    <View style={styles.child}>
+                    <View style={[styles.child, {backgroundColor : this.props.backgroundColor}]}>
                         <ProgressBarAndroid styleAttr={'Normal'}
                                             color={this.props.color}/>
                         <Text style={styles.title}>{this.props.title}</Text>
@@ -73,7 +75,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
         width : 200,
         height : 200,
-        backgroundColor : "#fff"
     },
     title : {
         fontSize : 16,

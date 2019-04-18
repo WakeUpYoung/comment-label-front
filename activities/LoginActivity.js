@@ -53,7 +53,7 @@ export default class LoginActivity extends Component {
                                     }
 
                                 })
-                                .catch(error => console.warn("warn :" + JSON.stringify(error)))
+                                .catch(error => ToastAndroid.show("error :" + JSON.stringify(error), ToastAndroid.SHORT))
                         })
 
                 }else {
@@ -103,7 +103,7 @@ export default class LoginActivity extends Component {
                         <TouchableOpacity style={styles.bottomText}
                                           onPress={() => {
                                               this.props.navigation.navigate("Forget"
-                                                  , {email : this.state.username, type : 'forget'})}}>
+                                                  , {email : this.state.username, type : 'default'})}}>
                             <Text>忘记密码?</Text>
                         </TouchableOpacity>
                         <Text style={{marginLeft:20, marginRight:20}}>|</Text>

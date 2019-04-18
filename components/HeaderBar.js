@@ -12,15 +12,18 @@ export default class HeaderBar extends Component{
         title : PropTypes.string,
         onPressBack : PropTypes.func.isRequired,
         color : PropTypes.string,
+        backgroundColor : PropTypes.string,
     };
 
     static defaultProps = {
-        color : 'white'
+        color : 'white',
+        backgroundColor : 'white',
     };
 
     render(){
         return (
-            <View style={styles.mainView}>
+            <View style={[styles.mainView, {backgroundColor : this.props.backgroundColor}]}>
+
                 <TouchableOpacity
                     onPress={this.props.onPressBack}>
                     <View style={[{paddingTop : StatusBar.currentHeight}, styles.backButton]}>

@@ -11,6 +11,7 @@ import UserActivity from "../activities/UserActivity";
 import createMaterialBottomTabNavigator
     from "react-navigation-material-bottom-tabs/dist/navigators/createMaterialBottomTabNavigator";
 import Global from "../config/Global";
+import LabelMainActivity from "../activities/LabelMainActivity";
 
 const UserNavigator = createStackNavigator(
     {
@@ -19,6 +20,18 @@ const UserNavigator = createStackNavigator(
     },
     {
         initialRouteName : "User" ,
+        mode: 'modal',
+        headerMode: 'none',
+    }
+);
+
+const LabelNavigator = createStackNavigator(
+    {
+        LabelMain : LabelMainActivity,
+        Labeling : LabelActivity,
+    },
+    {
+        initialRouteName : "LabelMain" ,
         mode: 'modal',
         headerMode: 'none',
     }
@@ -37,7 +50,7 @@ const TabNavigator = createMaterialBottomTabNavigator(
 
         },
         Label : {
-            screen : LabelActivity,
+            screen : LabelNavigator,
             navigationOptions : ({navigation}) => ({
                 tabBarIcon : ({tintColor, focused}) => {
                     return <SimpleLineIcons name={'pencil'} color={tintColor} size={26} />;

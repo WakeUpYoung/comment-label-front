@@ -1,3 +1,5 @@
+import {Dimensions} from "react-native";
+
 export default {
     backendUrl : 'http://192.168.2.109:8083',
     homeStyle : '#fd8f54',
@@ -13,4 +15,6 @@ export default {
         figureurl_qq_big : null,
     },
     emailRegx : /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/g,
+    windowWidth : Dimensions.get('window').width,
+    windowHeight : Dimensions.get('window').height,
 }
