@@ -7,8 +7,30 @@ export default class LabelMainActivity extends Component{
     constructor(props){
         super(props);
         this.state = {
-
+            num : 5,
         };
+        this.onClickAction = this.onClickAction.bind(this);
+    }
+
+    onClickAction(){
+        let expectLabel = this.state.num;
+        fetch(Global.backendUrl + "/comment/random/" + expectLabel, {
+            method : "GET",
+            headers : {
+                'Content-Type' : 'application/json;charset=utf-8'
+            },
+        }).then(data => data.json())
+            .then(json => {
+                if (json.code === 0){
+                    this.props.navigation.navigate("Labeling", {
+                        commodities : json.data
+                    })
+                } else {
+                    ToastAndroid.show(json.errMsg, ToastAndroid.SHORT);
+                }
+
+            })
+            .catch(e => {console.warn("error : " + e)})
     }
 
     render() {
@@ -19,9 +41,15 @@ export default class LabelMainActivity extends Component{
                            clearButtonMode={'while-editing'}
                            keyboardType={'numeric'}
                            selectionColor={'#e91e63'}
+                           defaultValue={'5'}
+                           onChangeText={(text) => {
+                               this.setState({
+                                   num : text,
+                               })
+                           }}
                            placeholder={'输入数量'}/>
                 <TouchableNativeFeedback
-                        onPress={() => {this.props.navigation.navigate("Labeling")}}>
+                        onPress={() => {this.onClickAction()}}>
                     <View style={styles.action}>
                         <Text style={styles.actionText}>Action</Text>
                     </View>

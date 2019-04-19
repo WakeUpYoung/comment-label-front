@@ -80,7 +80,8 @@ export default class EmailActivity extends Component {
                             end={{x : 0.7, y : 0.8}}
                             style={styles.mainView}>
 
-                <HeaderBar onPressBack={() => this.props.navigation.goBack()}/>
+                <HeaderBar onPressBack={() => this.props.navigation.goBack()}
+                        backgroundColor={this.background[0]}/>
 
                 <View style={{flex : 1}}/>
                 <View style={styles.contentView}>
