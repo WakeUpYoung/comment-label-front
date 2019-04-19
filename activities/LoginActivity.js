@@ -6,7 +6,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import * as QQAPI from 'react-native-qq';
 import PropTypes from 'prop-types';
 import LoadModel from "../components/LoadModel";
-
+import AsyncStorage from '@react-native-community/async-storage';
 
 export default class LoginActivity extends Component {
     constructor(prop){
@@ -18,7 +18,6 @@ export default class LoginActivity extends Component {
         this.loadModel = null;
         this.loginWithQQ = this.loginWithQQ.bind(this);
     }
-
 
     loginWithQQ(){
         let scopes = 'get_userinfo';
@@ -62,7 +61,8 @@ export default class LoginActivity extends Component {
             });
     }
 
-    saveUserInfo(user : PropTypes.object.isRequired){
+    // 保存用户信息到内存和数据库(异步)
+    async saveUserInfo(user : PropTypes.object.isRequired){
         Global.user.id = user.id;
         Global.user.email = user.email;
         Global.user.openid = user.openId;
@@ -70,7 +70,11 @@ export default class LoginActivity extends Component {
         Global.user.nickname = user.nickname;
         Global.user.figureurl_qq_small = user.figureurlQqSmall;
         Global.user.figureurl_qq_big = user.figureurlQqBig;
-
+        try {
+            await AsyncStorage.setItem('user', JSON.stringify(user))
+        }catch (e) {
+            console.warn(e)
+        }
     }
 
     render() {

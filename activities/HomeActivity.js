@@ -4,7 +4,6 @@ import {
     View, StatusBar, Image, TouchableOpacity, Alert, ToastAndroid, BackHandler
 } from 'react-native';
 
-
 export default class HomeActivity extends Component{
     constructor(prop) {
         super(prop);
