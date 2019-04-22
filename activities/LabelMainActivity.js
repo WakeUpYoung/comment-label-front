@@ -2,6 +2,7 @@ import React,{Component} from "react";
 import {StyleSheet, Text, View, TouchableOpacity, StatusBar, ToastAndroid, TextInput, TouchableNativeFeedback} from "react-native";
 import Global from "../config/Global";
 import PropTypes from 'prop-types';
+import LoadModel from "../components/LoadModel";
 
 export default class LabelMainActivity extends Component{
     constructor(props){
@@ -10,6 +11,7 @@ export default class LabelMainActivity extends Component{
             num : 5,
         };
         this.onClickAction = this.onClickAction.bind(this);
+        this.loadModel = null;
     }
 
     onClickAction(){
@@ -22,6 +24,7 @@ export default class LabelMainActivity extends Component{
             ToastAndroid.show("客官, 最多20个哦~o(*￣▽￣*)o", ToastAndroid.SHORT);
             return false;
         }
+        this.loadModel.showLoading();
         fetch(Global.backendUrl + "/comment/random/" + expectLabel, {
             method : "GET",
             headers : {
@@ -29,6 +32,7 @@ export default class LabelMainActivity extends Component{
             },
         }).then(data => data.json())
             .then(json => {
+                this.loadModel.hiddenLoading();
                 if (json.code === 0){
                     this.props.navigation.navigate("Labeling", {
                         commodities : json.data
@@ -66,6 +70,8 @@ export default class LabelMainActivity extends Component{
                         <Text style={styles.actionText}>Action</Text>
                     </View>
                 </TouchableNativeFeedback>
+
+                <LoadModel backgroundColor={'white'} color={Global.labelStyle} title={'Loading'} ref={(view) => this.loadModel = view}/>
             </View>
         );
     }

@@ -21,6 +21,26 @@ export default class App extends Component {
         }
     }
 
+    componentDidMount(): void {
+        fetch(Global.backendUrl + "/version/lasted")
+            .then(data => data.json())
+            .then(json => {
+                if (json.code === 0){
+                    return json.data.lasted !== Global.currentVersion;
+                }else {
+                    console.warn("something error");
+                    return false;
+                }
+            })
+            .then(res => {
+                if (res){
+                // TODO 需要更新时
+                }
+            })
+            .catch();
+
+    }
+
     static async hasLogin() : boolean {
         try {
             const userJson = await AsyncStorage.getItem('user');

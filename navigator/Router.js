@@ -22,7 +22,8 @@ const UserNavigator = createStackNavigator(
         initialRouteName : "User" ,
         mode: 'modal',
         headerMode: 'none',
-    }
+
+    },
 );
 
 const LabelNavigator = createStackNavigator(

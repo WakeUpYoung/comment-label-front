@@ -17,4 +17,5 @@ export default {
     emailRegx : /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/g,
     windowWidth : Dimensions.get('window').width,
     windowHeight : Dimensions.get('window').height,
+    currentVersion: '1.0.0',
 }
