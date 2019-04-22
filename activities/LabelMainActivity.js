@@ -14,6 +14,14 @@ export default class LabelMainActivity extends Component{
 
     onClickAction(){
         let expectLabel = this.state.num;
+        if (expectLabel < 5){
+            ToastAndroid.show("最小数字是5哦~（＞人＜；）", ToastAndroid.SHORT);
+            return false;
+        }
+        if (expectLabel > 20){
+            ToastAndroid.show("客官, 最多20个哦~o(*￣▽￣*)o", ToastAndroid.SHORT);
+            return false;
+        }
         fetch(Global.backendUrl + "/comment/random/" + expectLabel, {
             method : "GET",
             headers : {
@@ -37,17 +45,21 @@ export default class LabelMainActivity extends Component{
         return (
             <View style={[styles.main]}>
                 <StatusBar hidden={false} barStyle={'light-content'} translucent={true} backgroundColor={'transparent'}/>
-                <TextInput style={styles.input}
-                           clearButtonMode={'while-editing'}
-                           keyboardType={'numeric'}
-                           selectionColor={'#e91e63'}
-                           defaultValue={'5'}
-                           onChangeText={(text) => {
-                               this.setState({
-                                   num : text,
-                               })
-                           }}
-                           placeholder={'输入数量'}/>
+                <View sytle={styles.inputMain}>
+                    <Text style={styles.inputTitle}>请输入您要标记的数量</Text>
+                    <TextInput style={styles.input}
+                               clearButtonMode={'while-editing'}
+                               keyboardType={'numeric'}
+                               selectionColor={'#e91e63'}
+                               defaultValue={'5'}
+                               onChangeText={(text) => {
+                                   this.setState({
+                                       num : text,
+                                   })
+                               }}
+                               placeholder={'输入数量(5-20)'}/>
+                </View>
+
                 <TouchableNativeFeedback
                         onPress={() => {this.onClickAction()}}>
                     <View style={styles.action}>
@@ -66,6 +78,14 @@ const styles = StyleSheet.create({
         alignItems : "center",
         backgroundColor: "#009688",
     },
+    inputMain : {
+        flexDirection : 'row',
+        flex : 1,
+    },
+    inputTitle : {
+        color : 'white',
+        marginBottom : 5,
+    },
     input : {
         marginBottom : 30,
         paddingLeft : 20,
@@ -74,7 +94,7 @@ const styles = StyleSheet.create({
         borderColor : "#e91e63",
         borderWidth : 1,
         borderRadius : 30,
-        width : 300,
+        color : 'white',
     },
     action : {
         marginBottom : 30,

@@ -45,7 +45,7 @@ export default class LoginActivity extends Component {
                                 .then(json => {
                                     this.loadModel.hiddenLoading();
                                     if (json.code === 0){
-                                        this.saveUserInfo(json.data);
+                                        LoginActivity.saveUserInfo(json.data);
                                         this.props.navigation.navigate("Main");
                                     }else {
                                         ToastAndroid.show(json.errMsg, ToastAndroid.SHORT);
@@ -62,7 +62,7 @@ export default class LoginActivity extends Component {
     }
 
     // 保存用户信息到内存和数据库(异步)
-    async saveUserInfo(user : PropTypes.object.isRequired){
+    static async saveUserInfo(user : PropTypes.object.isRequired){
         Global.user.id = user.id;
         Global.user.email = user.email;
         Global.user.openid = user.openId;
