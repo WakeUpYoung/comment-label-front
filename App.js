@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, ToastAndroid, BackHandler} from 'react-native';
-import {LoginNavigator, MainAppContainer} from "./navigator/Router";
+import {LoginNavigator, MainAppContainer, ADScreen} from "./navigator/Router";
 import TestActivity from "./activities/TestActivity";
 import AsyncStorage from '@react-native-community/async-storage';
 import PropTypes from "prop-types";
@@ -19,6 +19,7 @@ export default class App extends Component {
         }else {
             this.initPage = <LoginNavigator/>;
         }
+        this.initPage = <ADScreen/>
     }
 
     componentDidMount(): void {

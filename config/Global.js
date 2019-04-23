@@ -1,7 +1,7 @@
 import {Dimensions} from "react-native";
 
 export default {
-    backendUrl : 'http://192.168.2.109:8083',
+    backendUrl : 'https://www.wakeupeidolon.cn:8094',
     homeStyle : '#fd8f54',
     labelStyle : '#00b4a1',
     userStyle : '#3f51b5',

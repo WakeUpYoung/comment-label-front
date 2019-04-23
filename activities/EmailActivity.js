@@ -108,7 +108,7 @@ export default class EmailActivity extends Component {
     }
 
     componentWillUnmount(){
-        clearInterval(this.interval)
+        this.interval && clearInterval(this.interval)
     }
 }
 

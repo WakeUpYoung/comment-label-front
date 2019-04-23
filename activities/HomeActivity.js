@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {
-    Platform, StyleSheet, Text, TextInput, TouchableNativeFeedback,
-    View, StatusBar, Image, TouchableOpacity, Alert, ToastAndroid, BackHandler
+    Platform, StyleSheet, Text,
+    View, StatusBar, ToastAndroid, BackHandler
 } from 'react-native';
 import Global from "../config/Global";
 

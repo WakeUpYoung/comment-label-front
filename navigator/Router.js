@@ -12,6 +12,7 @@ import createMaterialBottomTabNavigator
     from "react-navigation-material-bottom-tabs/dist/navigators/createMaterialBottomTabNavigator";
 import Global from "../config/Global";
 import LabelMainActivity from "../activities/LabelMainActivity";
+import ADActivity from "../activities/ADActivity";
 
 const UserNavigator = createStackNavigator(
     {
@@ -22,7 +23,6 @@ const UserNavigator = createStackNavigator(
         initialRouteName : "User" ,
         mode: 'modal',
         headerMode: 'none',
-
     },
 );
 
@@ -101,4 +101,18 @@ const LoginStack = createStackNavigator(
     }
 );
 
+const ADScreenNavigator = createStackNavigator(
+    {
+        AD : ADActivity,
+        Login: LoginStack,
+        Main: TabNavigator,
+    },
+    {
+        initialRouteName : "AD" ,
+        mode: 'modal',
+        headerMode: 'none',
+    },
+);
+
+export const ADScreen = createAppContainer(ADScreenNavigator);
 export const LoginNavigator = createAppContainer(LoginStack);
