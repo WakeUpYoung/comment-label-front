@@ -42,7 +42,7 @@ export default class LabelMainActivity extends Component{
                 }
 
             })
-            .catch(e => {console.warn("error : " + e)})
+            .catch()
     }
 
     render() {

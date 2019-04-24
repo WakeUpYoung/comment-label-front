@@ -111,6 +111,14 @@ android {
                     QQ_APPID: "101569226"
                 ]
     }
+    signingConfigs {
+        release {
+            storeFile file("D:\\personalKey\\wangyu.keystore")
+            storePassword "wang60589537"
+            keyAlias "wakeup-young"
+            keyPassword "wang60589537"
+        }
+    }
     splits {
         abi {
             reset()
@@ -123,6 +131,7 @@ android {
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            signingConfig signingConfigs.release
         }
     }
     // applicationVariants are e.g. debug, release

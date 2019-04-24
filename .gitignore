@@ -58,3 +58,4 @@ buck-out/
 /__tests__/
 
 *.jks
+*.keystore

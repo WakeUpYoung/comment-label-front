@@ -76,7 +76,7 @@ export default class LabelActivity extends Component{
                 commentId : this.commentMap.get(currentIndex).commentId,
                 whetherBelievable : isBelievable,
             })
-        }).catch(e => console.warn("something error"));
+        }).catch();
         if (currentIndex < this.commentMap.size -1){
             this.swiper.forceRightSwipe();
             let type = this.commentMap.get(nextIndex).type;

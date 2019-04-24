@@ -36,7 +36,7 @@ export default class HomeActivity extends Component{
        return(
            <View style={styles.main}>
                <StatusBar hidden={false} barStyle={'light-content'} translucent={true} backgroundColor={'transparent'}/>
-               <View style={[styles.head, {backgroundColor : Global.homeStyle+'be'}]}>
+               <View style={[styles.head, {backgroundColor : Global.homeStyle}]}>
                    <View>
                        <View style={{height : StatusBar.currentHeight, backgroundColor: '#0000'}}/>
                        <View style={styles.headContext}>

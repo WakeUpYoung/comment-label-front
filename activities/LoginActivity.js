@@ -84,10 +84,14 @@ export default class LoginActivity extends Component {
                                 })
                         })
 
-                }else {
-                    ToastAndroid.show("啊哦，您好像没有安装QQ", ToastAndroid.SHORT)
                 }
+            })
+            .catch((e) => {
+                this.loadModel.hiddenLoading();
+                ToastAndroid.show("啊哦，您好像没有安装QQ", ToastAndroid.SHORT)
+
             });
+
     }
 
     // 保存用户信息到内存和数据库(异步)
@@ -102,7 +106,7 @@ export default class LoginActivity extends Component {
         try {
             await AsyncStorage.setItem('user', JSON.stringify(user))
         }catch (e) {
-            console.warn(e)
+
         }
     }
 

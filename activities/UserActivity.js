@@ -46,7 +46,7 @@ export default class UserActivity extends Component{
             <View style={styles.mainView}>
                 <StatusBar hidden={false} barStyle={'light-content'} translucent={true} backgroundColor={'transparent'}/>
                 <ART.Surface width={width} height={250}>
-                    <ART.Shape d={path} stroke="#000000" fill={"#4e69d4"} strokeWidth={0}/>
+                    <ART.Shape d={path} stroke="#000000" fill={Global.userStyle} strokeWidth={0}/>
                 </ART.Surface>
                 {/*用户头像*/}
                 <View style={[styles.imgView , {left : avatarLeft, top : avatarTop}]}>

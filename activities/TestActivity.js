@@ -16,7 +16,7 @@ export default class TestActivity extends Component {
             await AsyncStorage.setItem('someKey', text);
             ToastAndroid.show('保存成功', ToastAndroid.SHORT);
         }catch (e) {
-            console.warn(JSON.stringify(e))
+
         }
 
     }
