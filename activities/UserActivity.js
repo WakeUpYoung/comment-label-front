@@ -3,14 +3,15 @@ import {Text, View, StatusBar , StyleSheet , Dimensions , ART, Image, TouchableN
 import MenuTextView from "../components/MenuTextView";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Global from "../config/Global";
-
+import AsyncStorage from "@react-native-community/async-storage";
 
 export default class UserActivity extends Component{
     constructor(prop) {
         super(prop);
         this.state = {
             y : 20,
-        }
+        };
+        this.logout = this.logout.bind(this)
     }
 
     componentDidMount() {
@@ -25,6 +26,10 @@ export default class UserActivity extends Component{
             })
         }, 2);
 
+    }
+
+    async logout(){
+        await AsyncStorage.removeItem("user");
     }
 
 
@@ -63,7 +68,7 @@ export default class UserActivity extends Component{
                             onPress={() => {ToastAndroid.show("这是一个超厉害的软件(ง •_•)ง", ToastAndroid.SHORT)}}/>
                 <View style={{marginTop : 50, backgroundColor : "transparent"}}/>
                 <TouchableNativeFeedback
-                    onPress={() => ToastAndroid.show("退出登录", ToastAndroid.SHORT)}>
+                    onPress={this.logout}>
                     <View style={styles.logout}>
                         <Text style={{color : "#cf2a37", fontSize : 15}}>退出登录</Text>
                     </View>

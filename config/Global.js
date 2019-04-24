@@ -1,7 +1,10 @@
 import {Dimensions} from "react-native";
 
+const remote = 'https://www.wakeupeidolon.cn:8094';
+const local = 'http://192.168.2.109:8085';
+
 export default {
-    backendUrl : 'https://www.wakeupeidolon.cn:8094',
+    backendUrl : remote,
     homeStyle : '#fd8f54',
     labelStyle : '#00b4a1',
     userStyle : '#3f51b5',

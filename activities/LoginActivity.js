@@ -17,6 +17,31 @@ export default class LoginActivity extends Component {
         };
         this.loadModel = null;
         this.loginWithQQ = this.loginWithQQ.bind(this);
+        this.onClickLogin = this.onClickLogin.bind(this);
+    }
+
+    onClickLogin(){
+        this.loadModel.showLoading();
+        fetch(Global.backendUrl + "/user/login", {
+            method : 'POST',
+            headers : {
+                'Content-Type' : 'application/json;charset=utf-8'
+            },
+            body : JSON.stringify({
+                username: this.state.username,
+                password: this.state.password,
+            }).then(data => data.json())
+                .then(json => {
+                    this.loadModel.hiddenLoading();
+                    if (json.code === 0){
+                        LoginActivity.saveUserInfo(json.data);
+                        this.props.navigation.navigate("Main");
+                    }else {
+                        ToastAndroid.show(json.errMsg, ToastAndroid.SHORT);
+                    }
+                })
+                .catch(() => this.loadModel.hiddenLoading())
+        });
     }
 
     loginWithQQ(){
@@ -52,7 +77,11 @@ export default class LoginActivity extends Component {
                                     }
 
                                 })
-                                .catch(error => ToastAndroid.show("error :" + JSON.stringify(error), ToastAndroid.SHORT))
+                                .catch(error => {
+                                    console.warn(error);
+                                    this.loadModel.hiddenLoading();
+                                    ToastAndroid.show("网络异常", ToastAndroid.SHORT)
+                                })
                         })
 
                 }else {
@@ -90,7 +119,7 @@ export default class LoginActivity extends Component {
                 <View style={{flex : 2}}>
                     <TextInput inlineImageLeft='user_32'
                                inlineImagePadding={20}
-                               placeholder='用户名/邮箱'
+                               placeholder='邮箱'
                                style={styles.inputStyle}
                                onChangeText={(text) => this.setState({username : text})}/>
                     <TextInput inlineImageLeft='password_32' inlineImagePadding={20}
@@ -98,7 +127,8 @@ export default class LoginActivity extends Component {
                                style={styles.inputStyle}
                                onChangeText={(text) => this.setState({password : text})}/>
                     {/*登录按钮*/}
-                    <TouchableNativeFeedback>
+                    <TouchableNativeFeedback
+                        onPress={() => this.onClickLogin()}>
                         <View style={styles.button}>
                             <Text style={styles.buttonText}>登录</Text>
                         </View>

@@ -43,6 +43,8 @@ export default class HeaderBar extends Component{
 const styles = StyleSheet.create({
     mainView : {
         flexDirection: 'row',
+        paddingBottom: 10,
+        paddingTop: 5,
     },
     backButton : {
         flexDirection : 'row',

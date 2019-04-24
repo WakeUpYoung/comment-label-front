@@ -1,32 +1,20 @@
 import React, {Component} from 'react';
 import {createAppContainer, createStackNavigator} from "react-navigation";
-import LoginActivity from "../activities/LoginActivity";
 import EmailActivity from "../activities/EmailActivity";
+import LabelActivity from "../activities/LabelActivity";
+import UserActivity from "../activities/UserActivity";
+import ADActivity from "../activities/ADActivity";
+import Global from "../config/Global";
+import LabelMainActivity from "../activities/LabelMainActivity";
+import createMaterialBottomTabNavigator
+    from "react-navigation-material-bottom-tabs/dist/navigators/createMaterialBottomTabNavigator";
+import HomeActivity from "../activities/HomeActivity";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import HomeActivity from "../activities/HomeActivity";
-import LabelActivity from "../activities/LabelActivity";
-import UserActivity from "../activities/UserActivity";
-import createMaterialBottomTabNavigator
-    from "react-navigation-material-bottom-tabs/dist/navigators/createMaterialBottomTabNavigator";
-import Global from "../config/Global";
-import LabelMainActivity from "../activities/LabelMainActivity";
-import ADActivity from "../activities/ADActivity";
+import LoginActivity from "../activities/LoginActivity";
 
-const UserNavigator = createStackNavigator(
-    {
-        User : UserActivity,
-        Email : EmailActivity,
-    },
-    {
-        initialRouteName : "User" ,
-        mode: 'modal',
-        headerMode: 'none',
-    },
-);
-
-const LabelNavigator = createStackNavigator(
+export const LabelNavigator = createStackNavigator(
     {
         LabelMain : LabelMainActivity,
         Labeling : LabelActivity,
@@ -38,7 +26,19 @@ const LabelNavigator = createStackNavigator(
     }
 );
 
-const TabNavigator = createMaterialBottomTabNavigator(
+export const UserNavigator = createStackNavigator(
+    {
+        User : UserActivity,
+        Email : EmailActivity,
+    },
+    {
+        initialRouteName : "User" ,
+        mode: 'modal',
+        headerMode: 'none',
+    },
+);
+
+export const TabNavigator = createMaterialBottomTabNavigator(
     {
         Home : {
             screen : HomeActivity,
@@ -79,9 +79,8 @@ const TabNavigator = createMaterialBottomTabNavigator(
         barStyle: { backgroundColor: '#fd8f54' },
     }
 );
-export const MainAppContainer = createAppContainer(TabNavigator);
 
-const LoginStack = createStackNavigator(
+export const LoginStack = createStackNavigator(
     {
         Login : {
             screen : LoginActivity
@@ -101,7 +100,7 @@ const LoginStack = createStackNavigator(
     }
 );
 
-const ADScreenNavigator = createStackNavigator(
+export const ADScreenNavigator = createStackNavigator(
     {
         AD : ADActivity,
         Login: LoginStack,
@@ -114,5 +113,6 @@ const ADScreenNavigator = createStackNavigator(
     },
 );
 
-export const ADScreen = createAppContainer(ADScreenNavigator);
 export const LoginNavigator = createAppContainer(LoginStack);
+export const MainAppContainer = createAppContainer(TabNavigator);
+export const ADScreen = createAppContainer(ADScreenNavigator);

@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 import {
     Platform, StyleSheet, Text, TouchableOpacity,
-    View, ToastAndroid, BackHandler
+    View, ToastAndroid, BackHandler, StatusBar
 } from 'react-native';
 import Global from "../config/Global";
+import AsyncStorage from "@react-native-community/async-storage";
+import PropTypes from "prop-types";
 
 export default class ADActivity extends Component{
     constructor(props){
@@ -11,10 +13,17 @@ export default class ADActivity extends Component{
         this.state = {
             time: 5,
         };
-        this.onPress = this.onPress.bind(this)
+        this.onPress = this.onPress.bind(this);
+        this.nextPage = "Login";
     }
 
     componentDidMount(): void {
+        ADActivity.hasLogin()
+            .then(bool => {
+               if (bool) {
+                   this.nextPage = "Main";
+               }
+            });
         this.interval = setInterval(() => {
             let time = this.state.time;
             if (time > 0){
@@ -23,10 +32,9 @@ export default class ADActivity extends Component{
                     time : time,
                 })
             }else{
-                this.props.navigation.replace("Main");
+                this.props.navigation.replace(this.nextPage);
             }
-
-        }, 1000)
+        }, 1000);
     }
 
     componentWillUnmount(): void {
@@ -34,13 +42,41 @@ export default class ADActivity extends Component{
     }
 
     onPress(){
-        this.props.navigation.replace("Main");
+        this.props.navigation.replace(this.nextPage);
+    }
 
+    static async hasLogin() : boolean {
+        try {
+            const userJson = await AsyncStorage.getItem('user');
+            // 如果用户之前有登录过
+            if (userJson) {
+                let user = JSON.parse(userJson);
+                ADActivity.saveUserInfo(user);
+                return true;
+                // 如果没有登录过则跳到登录页面
+            }else{
+                return false;
+            }
+        } catch (error) {
+            return false;
+        }
+    }
+
+    // 保存用户信息到内存
+    static saveUserInfo(user : PropTypes.object.isRequired){
+        Global.user.id = user.id;
+        Global.user.email = user.email;
+        Global.user.openid = user.openId;
+        Global.user.gender = user.gender;
+        Global.user.nickname = user.nickname;
+        Global.user.figureurl_qq_small = user.figureurlQqSmall;
+        Global.user.figureurl_qq_big = user.figureurlQqBig;
     }
 
     render() {
         return (
             <View style={styles.main}>
+                <StatusBar hidden={true}/>
                 <View style={styles.skipBtn}>
                     <TouchableOpacity
                         underlayColor={Global.homeStyle}
@@ -79,15 +115,17 @@ const styles = StyleSheet.create({
     },
     skip : {
         backgroundColor: '#00000090',
-        borderRadius: 20,
-        paddingLeft: 20,
-        paddingRight: 20,
-        paddingTop: 10,
-        paddingBottom: 10,
+        borderRadius: 15,
+        paddingLeft: 10,
+        paddingRight: 10,
+        paddingTop: 5,
+        paddingBottom: 5,
+        marginRight: 20,
+        marginTop: 20,
     },
     skipText: {
         color: '#fff',
-        fontSize: 16,
+        fontSize: 13,
     },
     adView: {
         flex: 1,

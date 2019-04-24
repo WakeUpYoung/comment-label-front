@@ -10,6 +10,7 @@ export default class EmailActivity extends Component {
         super(prop);
         this.state = {
             email : JSON.stringify(this.props.navigation.getParam('email', '')).replace(/["']/g,''),
+            validCode: '',
             sendBtnDisable : false,
             btnText : '发送验证码',
             btnColor : '#6495ED',
@@ -19,12 +20,15 @@ export default class EmailActivity extends Component {
             this.background = ['#e3729e', '#fd8f54'];
             this.defaultBtnColor = '#6495ED';
             this.disableColor = '#A9A9A9';
+            this.modify = false;
         } else {
             this.background = ['#6495ED', '#6495ED'];
             this.defaultBtnColor = '#00000050';
             this.disableColor = '#0000002c';
+            this.modify = true;
         }
-
+        this.onPressSend = this.onPressSend.bind(this);
+        this.submit = this.submit.bind(this);
     }
 
     componentWillMount() {
@@ -33,6 +37,10 @@ export default class EmailActivity extends Component {
         })
     }
 
+    componentDidMount(): void {
+    }
+
+    // 发送验证码
     onPressSend(){
         if (!this.state.sendBtnDisable){
             if (!Global.emailRegx.test(this.state.email)) {
@@ -58,22 +66,66 @@ export default class EmailActivity extends Component {
                             btnColor : this.disableColor,
                         }
                     });
-
                 }
             }, 1000);
-            return ToastAndroid.show("发送验证码", ToastAndroid.SHORT);
+            fetch(Global.backendUrl + "/user/sendEmail", {
+                method : 'POST',
+                headers : {
+                    'Content-Type' : 'application/json;charset=utf-8'
+                },
+                body : JSON.stringify({
+                    email: this.state.email,
+                    modify: this.modify,
+                })
+            })
+                .then(data => data.json())
+                .then(json => {
+                    if (json.code ===0){
+                        ToastAndroid.show("已发送验证码", ToastAndroid.SHORT);
+                    } else{
+                        ToastAndroid.show(json.errMsg, ToastAndroid.SHORT);
+                    }
+                })
+                .catch()
+
         }else {
             return null;
         }
-    };
+    }
+
+    // 点击提交按钮
+    submit(){
+        if (this.modify){
+            fetch(Global.backendUrl + "/user/modifyEmail", {
+                method : 'POST',
+                headers : {
+                    'Content-Type' : 'application/json;charset=utf-8'
+                },
+                body : JSON.stringify({
+                    email: this.state.email,
+                    validCode: this.state.validCode,
+                    id: Global.user.id,
+                })
+            })
+                .then(data => data.json())
+                .then(json => {
+                    if (json.code === 0){
+                        ToastAndroid.show("修改成功", ToastAndroid.SHORT);
+                        Global.user.email = this.state.email;
+                    }else{
+                        ToastAndroid.show(json.errMsg, ToastAndroid.SHORT);
+                    }
+                })
+                .catch();
+        }
+    }
 
 
     render(){
-        let email = this.state.email;
+        let email = Global.user.email;
         if (email || email == null || email.startsWith('not_set_')){
             email = '';
         }
-
         return(
             <LinearGradient colors={this.background}
                             start={{x : 0, y : 0}}
@@ -90,11 +142,12 @@ export default class EmailActivity extends Component {
                            placeholder='邮箱'
                            defaultValue={email}
                            keyboardType='email-address'
-                               onChangeText={(text) => this.setState({email : text})}
+                           onChangeText={(text) => this.setState({email : text})}
                            style={styles.inputStyle}/>
                     <View style={styles.codeView}>
                         <TextInput inlineImageLeft='code_32'
                                    inlineImagePadding={20}
+                                   onChangeText={text => this.setState({validCode: text})}
                                     placeholder="验证码" style={[styles.inputStyle, {flex: 3}]}/>
                         <TouchableNativeFeedback onPress={() => this.onPressSend()}>
                             <View style={[styles.sendBtn, {backgroundColor: this.state.btnColor}]}>
@@ -102,7 +155,15 @@ export default class EmailActivity extends Component {
                             </View>
                         </TouchableNativeFeedback>
                     </View>
-            </View>
+                    <View style={styles.submit}>
+                        <TouchableNativeFeedback
+                            onPress={() => this.submit()}>
+                            <View style={[styles.submitBtn, {backgroundColor: this.defaultBtnColor}]}>
+                                <Text style={styles.submitText}>确认</Text>
+                            </View>
+                        </TouchableNativeFeedback>
+                    </View>
+                </View>
             </LinearGradient>
             );
     }
@@ -146,6 +207,21 @@ const styles = StyleSheet.create({
     },
     sendText : {
         color : "#fff",
+    },
+    submit: {
+
+    },
+    submitBtn: {
+        justifyContent : "center",
+        alignItems : "center",
+        borderRadius : 30,
+        paddingTop: 10,
+        paddingBottom: 10,
+    },
+    submitText: {
+        color: "#fff",
+        letterSpacing: 20,
     }
+
 
 });
