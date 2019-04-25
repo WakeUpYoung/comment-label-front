@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 import Global from '../config/Global';
 import {Platform, StyleSheet, Text, TextInput, TouchableNativeFeedback,
-    View , StatusBar , Image , TouchableOpacity , Alert, ToastAndroid} from 'react-native';
+    View , StatusBar , Image , TouchableOpacity , BackHandler, ToastAndroid} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import * as QQAPI from 'react-native-qq';
 import PropTypes from 'prop-types';
 import LoadModel from "../components/LoadModel";
 import AsyncStorage from '@react-native-community/async-storage';
+import Entypo from "react-native-vector-icons/Entypo";
 
 export default class LoginActivity extends Component {
     constructor(prop){
@@ -18,6 +19,16 @@ export default class LoginActivity extends Component {
         this.loadModel = null;
         this.loginWithQQ = this.loginWithQQ.bind(this);
         this.onClickLogin = this.onClickLogin.bind(this);
+    }
+
+    componentDidMount(): void {
+        this.tiemout = setTimeout(() => {
+                this.loadModel.hiddenLoading();
+            },15000)
+    }
+
+    componentWillUnmount(): void {
+        this.tiemout && clearTimeout(this.tiemout);
     }
 
     onClickLogin(){
@@ -77,8 +88,7 @@ export default class LoginActivity extends Component {
                                     }
 
                                 })
-                                .catch(error => {
-                                    console.warn(error);
+                                .catch(() => {
                                     this.loadModel.hiddenLoading();
                                     ToastAndroid.show("网络异常", ToastAndroid.SHORT)
                                 })
@@ -153,7 +163,7 @@ export default class LoginActivity extends Component {
                     {/* 第三方登录 */}
                     <View style={styles.loginWithOther}>
                         <TouchableOpacity onPress={() => this.loginWithQQ()}>
-                            <Image source={require('../resources/images/qq_48_white.png')} style={styles.loginImg}/>
+                            <Entypo name={"qq-with-circle"} size={53} color={'#ffffffcc'} />
                         </TouchableOpacity>
                     </View>
 

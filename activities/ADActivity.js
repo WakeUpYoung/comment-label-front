@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {
     Platform, StyleSheet, Text, TouchableOpacity,
-    View, ToastAndroid, BackHandler, StatusBar
+    View, ToastAndroid, BackHandler, StatusBar, Image
 } from 'react-native';
 import Global from "../config/Global";
 import AsyncStorage from "@react-native-community/async-storage";
@@ -74,6 +74,7 @@ export default class ADActivity extends Component{
     }
 
     render() {
+        let num = Global.windowWidth * 0.7;
         return (
             <View style={styles.main}>
                 <StatusBar hidden={true}/>
@@ -88,7 +89,9 @@ export default class ADActivity extends Component{
                 </View>
 
                 <View style={styles.adView}>
-                    <Text style={styles.text}>广告位招租</Text>
+                    <Image
+                        style={{width: num, height: num}}
+                        source={require('../resources/images/ad_require.png')} />
                 </View>
             </View>
         );
