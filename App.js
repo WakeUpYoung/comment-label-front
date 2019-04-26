@@ -3,6 +3,7 @@ import {Platform, StyleSheet, Text, View, ToastAndroid, BackHandler} from 'react
 import PropTypes from "prop-types";
 import Global from "./config/Global";
 import {ADScreen, MainAppContainer} from "./navigator/Router";
+import Orientation from 'react-native-orientation';
 
 export default class App extends Component {
 
@@ -12,6 +13,7 @@ export default class App extends Component {
     }
 
     componentDidMount(): void {
+        Orientation.lockToPortrait();
         fetch(Global.backendUrl + "/version/lasted")
             .then(data => data.json())
             .then(json => {
@@ -23,7 +25,7 @@ export default class App extends Component {
             })
             .then(res => {
                 if (res){
-                // TODO 需要更新时
+                    ToastAndroid.show("软件有新版本哦", ToastAndroid.SHORT);
                 }
             })
             .catch();

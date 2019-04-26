@@ -32,6 +32,9 @@ export default class LoginActivity extends Component {
     }
 
     onClickLogin(){
+        if (!this.state.username || !this.state.password){
+            return ToastAndroid.show("请输入用户名和密码", ToastAndroid.SHORT);
+        }
         this.loadModel.showLoading();
         fetch(Global.backendUrl + "/user/login", {
             method : 'POST',
@@ -46,7 +49,7 @@ export default class LoginActivity extends Component {
                     this.loadModel.hiddenLoading();
                     if (json.code === 0){
                         LoginActivity.saveUserInfo(json.data);
-                        this.props.navigation.navigate("Main");
+                        this.props.navigation.replace("Main");
                     }else {
                         ToastAndroid.show(json.errMsg, ToastAndroid.SHORT);
                     }
@@ -82,7 +85,7 @@ export default class LoginActivity extends Component {
                                     this.loadModel.hiddenLoading();
                                     if (json.code === 0){
                                         LoginActivity.saveUserInfo(json.data);
-                                        this.props.navigation.navigate("Main");
+                                        this.props.navigation.replace("Main");
                                     }else {
                                         ToastAndroid.show(json.errMsg, ToastAndroid.SHORT);
                                     }

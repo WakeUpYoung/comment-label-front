@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import {
-    Platform, StyleSheet, Text,
+    Platform, StyleSheet, Text,Image,
     View, StatusBar, ToastAndroid, BackHandler
 } from 'react-native';
 import Global from "../config/Global";
+
 
 export default class HomeActivity extends Component{
     constructor(prop) {
@@ -46,8 +47,13 @@ export default class HomeActivity extends Component{
                </View>
 
                <View style={styles.content} >
-                   <Text style={styles.contentText}>没有UI</Text>
-                   <Text style={styles.contentText}>暂时没有内容 (*/ω＼*)</Text>
+                   <Text style={styles.contentText}>感谢使用Comment Label</Text>
+                   <Text style={styles.contentText}>毕设需要数据</Text>
+                   <Text style={styles.contentText}>感谢帮忙❤</Text>
+               </View>
+
+               <View style={styles.image}>
+                   <Image source={require("../resources/images/lookdown.png")} style={{width: Global.windowWidth/4, height: Global.windowWidth/4}}/>
                </View>
 
            </View>
@@ -70,17 +76,23 @@ const styles = StyleSheet.create({
     headContext : {
         paddingLeft : 20,
         paddingBottom : 10,
+        paddingTop: 10,
     },
     content : {
-        flex : 1,
+        flex : 2,
         flexDirection : 'column',
         justifyContent : 'center',
         alignItems : 'center',
     },
     contentText : {
-        fontSize: 30,
+        fontSize: 25,
         color : '#848484',
     },
+    image : {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+    }
 });
 
 

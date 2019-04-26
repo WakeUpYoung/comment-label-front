@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     },
     content : {
         flex : 1,
-        fontSize : 15,
+        fontSize : 17,
         color : '#3f3f3f',
         borderColor : "#d4d4d4",
         borderStyle : "solid",

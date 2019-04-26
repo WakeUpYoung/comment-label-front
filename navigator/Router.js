@@ -44,9 +44,10 @@ export const TabNavigator = createMaterialBottomTabNavigator(
             screen : HomeActivity,
             navigationOptions : ({navigation}) => ({
                 tabBarIcon : ({tintColor, focused}) => {
-                    return <AntDesign name={'home'} color={tintColor} size={26} />;
+                    return <AntDesign name={'home'} color={tintColor} size={24} />;
                 },
                 tabBarColor: Global.homeStyle,
+                tabBarLabel: '首页',
             }),
 
         },
@@ -54,18 +55,20 @@ export const TabNavigator = createMaterialBottomTabNavigator(
             screen : LabelNavigator,
             navigationOptions : ({navigation}) => ({
                 tabBarIcon : ({tintColor, focused}) => {
-                    return <SimpleLineIcons name={'pencil'} color={tintColor} size={26} />;
+                    return <SimpleLineIcons name={'pencil'} color={tintColor} size={24} />;
                 },
                 tabBarColor : Global.labelStyle,
+                tabBarLabel: '标签',
             }),
         },
         User : {
             screen : UserNavigator,
             navigationOptions : ({navigation}) => ({
                 tabBarIcon : ({tintColor, focused}) => {
-                    return <FontAwesome name={'user-o'} color={tintColor} size={26} />;
+                    return <FontAwesome name={'user-o'} color={tintColor} size={24} />;
                 },
                 tabBarColor : Global.userStyle,
+                tabBarLabel: '我的',
             }),
         },
     },

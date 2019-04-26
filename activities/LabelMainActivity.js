@@ -16,6 +16,10 @@ export default class LabelMainActivity extends Component{
 
     onClickAction(){
         let expectLabel = this.state.num;
+        if (isNaN(expectLabel)){
+            ToastAndroid.show("要填数字哦~", ToastAndroid.SHORT);
+            return false;
+        }
         if (expectLabel < 5){
             ToastAndroid.show("最小数字是5哦~（＞人＜；）", ToastAndroid.SHORT);
             return false;
@@ -50,11 +54,12 @@ export default class LabelMainActivity extends Component{
             <View style={[styles.main]}>
                 <StatusBar hidden={false} barStyle={'light-content'} translucent={true} backgroundColor={'transparent'}/>
                 <View sytle={styles.inputMain}>
-                    <Text style={styles.inputTitle}>请输入您要标记的数量</Text>
+                    <Text style={styles.inputTitle}>请输入您要标记的评论数量</Text>
                     <TextInput style={styles.input}
                                clearButtonMode={'while-editing'}
                                keyboardType={'numeric'}
                                selectionColor={'#e91e63'}
+                               maxLength={2}
                                defaultValue={'5'}
                                onChangeText={(text) => {
                                    this.setState({
@@ -67,7 +72,7 @@ export default class LabelMainActivity extends Component{
                 <TouchableNativeFeedback
                         onPress={() => {this.onClickAction()}}>
                     <View style={styles.action}>
-                        <Text style={styles.actionText}>Action</Text>
+                        <Text style={styles.actionText}>开始!</Text>
                     </View>
                 </TouchableNativeFeedback>
 

@@ -70,7 +70,7 @@ export default class UserActivity extends Component{
                 <TouchableNativeFeedback
                     onPress={this.logout}>
                     <View style={styles.logout}>
-                        <Text style={{color : "#cf2a37", fontSize : 15}}>退出登录</Text>
+                        <Text style={{color : "#cf2a37", fontSize : 17}}>退出登录</Text>
                     </View>
                 </TouchableNativeFeedback>
             </View>

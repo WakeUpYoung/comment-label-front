@@ -183,10 +183,10 @@ export default class LabelActivity extends Component{
                 </SwiperAnimated>
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity onPress={() => this.onClickLabel(true)} style={styles.btn}>
-                        <Text style={styles.btnText}>Believable</Text>
+                        <Text style={styles.btnText}>真</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => this.onClickLabel(false)} style={styles.btn}>
-                        <Text style={styles.btnText}>Fake</Text>
+                        <Text style={styles.btnText}>假</Text>
                     </TouchableOpacity>
                 </View>
             </View>

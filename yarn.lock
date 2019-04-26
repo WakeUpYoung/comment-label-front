@@ -5172,6 +5172,11 @@ react-native-linear-gradient@^2.5.4:
   resolved "http://registry.npm.taobao.org/react-native-linear-gradient/download/react-native-linear-gradient-2.5.4.tgz#dce133526f5a5510a639af94544f1ed0c984bd1e"
   integrity sha1-3OEzUm9aVRCmOa+UVE8e0MmEvR4=
 
+react-native-orientation@^3.1.3:
+  version "3.1.3"
+  resolved "https://registry.npm.taobao.org/react-native-orientation/download/react-native-orientation-3.1.3.tgz#d45803841fe94b6cce9acbe904fd5ca191a3711e"
+  integrity sha1-1FgDhB/pS2zOmsvpBP1coZGjcR4=
+
 react-native-paper@^2.15.2:
   version "2.15.2"
   resolved "http://registry.npm.taobao.org/react-native-paper/download/react-native-paper-2.15.2.tgz#c1a529cd5a11cfdb20746e0eec87343c0fbc4e66"
