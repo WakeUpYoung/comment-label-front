@@ -2,14 +2,15 @@ import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, ToastAndroid, BackHandler} from 'react-native';
 import PropTypes from "prop-types";
 import Global from "./config/Global";
-import {ADScreen, MainAppContainer} from "./navigator/Router";
+import {RootScreen, MainAppContainer} from "./navigator/Router";
 import Orientation from 'react-native-orientation';
+import AboutActivity from "./activities/AboutActivity";
 
 export default class App extends Component {
 
     constructor(props){
         super(props);
-        this.initPage = <ADScreen/>;
+        this.initPage = <RootScreen />;
     }
 
     componentDidMount(): void {

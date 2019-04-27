@@ -13,6 +13,7 @@ import AntDesign from "react-native-vector-icons/AntDesign";
 import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import LoginActivity from "../activities/LoginActivity";
+import AboutActivity from "../activities/AboutActivity";
 
 export const LabelNavigator = createStackNavigator(
     {
@@ -30,6 +31,7 @@ export const UserNavigator = createStackNavigator(
     {
         User : UserActivity,
         Email : EmailActivity,
+        About : AboutActivity,
     },
     {
         initialRouteName : "User" ,
@@ -103,7 +105,7 @@ export const LoginStack = createStackNavigator(
     }
 );
 
-export const ADScreenNavigator = createStackNavigator(
+export const RootStack = createStackNavigator(
     {
         AD : ADActivity,
         Login: LoginStack,
@@ -116,6 +118,5 @@ export const ADScreenNavigator = createStackNavigator(
     },
 );
 
-export const LoginNavigator = createAppContainer(LoginStack);
 export const MainAppContainer = createAppContainer(TabNavigator);
-export const ADScreen = createAppContainer(ADScreenNavigator);
+export const RootScreen = createAppContainer(RootStack);

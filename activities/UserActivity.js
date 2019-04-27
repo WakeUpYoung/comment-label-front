@@ -65,7 +65,7 @@ export default class UserActivity extends Component{
                     onPress={() => {ToastAndroid.show("功能完善中", ToastAndroid.SHORT)}}/>
                 <MenuTextView title={"关于此软件"}
                               image={<MaterialCommunityIcons name={'information-outline'} color={Global.userStyle} size={30} />}
-                            onPress={() => {ToastAndroid.show("这是一个超厉害的软件(ง •_•)ง", ToastAndroid.SHORT)}}/>
+                            onPress={() => {this.props.navigation.navigate('About')}}/>
                 <View style={{marginTop : 50, backgroundColor : "transparent"}}/>
                 <TouchableNativeFeedback
                     onPress={this.logout}>
