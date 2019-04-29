@@ -18,6 +18,7 @@ export default {
         figureurl_qq_big : null,
     },
     emailRegx : /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/g,
+    handWritten: '沐瑶软笔手写体',
     windowWidth : Dimensions.get('window').width,
     windowHeight : Dimensions.get('window').height,
     currentVersion: '1.1.0',

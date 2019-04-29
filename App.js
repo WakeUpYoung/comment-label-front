@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import Global from "./config/Global";
 import {RootScreen, MainAppContainer} from "./navigator/Router";
 import Orientation from 'react-native-orientation';
-import AboutActivity from "./activities/AboutActivity";
+import TestActivity from "./activities/TestActivity";
 
 export default class App extends Component {
 
