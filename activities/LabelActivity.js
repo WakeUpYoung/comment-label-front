@@ -80,6 +80,7 @@ export default class LabelActivity extends Component{
                     modalVisible: true
                 })
             }, 200);
+            Global.needGuide = false;
         }
 
     }
