@@ -25,6 +25,7 @@ export default class LoginActivity extends Component {
         this.tiemout = setTimeout(() => {
                 this.loadModel.hiddenLoading();
             },15000)
+
     }
 
     componentWillUnmount(): void {
@@ -116,6 +117,7 @@ export default class LoginActivity extends Component {
         Global.user.nickname = user.nickname;
         Global.user.figureurl_qq_small = user.figureurlQqSmall;
         Global.user.figureurl_qq_big = user.figureurlQqBig;
+        Global.needGuide = true;
         try {
             await AsyncStorage.setItem('user', JSON.stringify(user))
         }catch (e) {

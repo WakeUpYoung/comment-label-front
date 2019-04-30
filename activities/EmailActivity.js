@@ -123,7 +123,7 @@ export default class EmailActivity extends Component {
 
     render(){
         let email = Global.user.email;
-        if (email || email == null || email.startsWith('not_set_')){
+        if (!email || email.startsWith('not_set_')){
             email = '';
         }
         return(

@@ -22,4 +22,5 @@ export default {
     windowWidth : Dimensions.get('window').width,
     windowHeight : Dimensions.get('window').height,
     currentVersion: '1.1.0',
+    needGuide : false,
 }
