@@ -27,7 +27,6 @@ export default class LabelMainActivity extends Component{
                     modalVisible: true
                 })
             }, 200);
-            Global.needGuide = false;
         }
 
     }
